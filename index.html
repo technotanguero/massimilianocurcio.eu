@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Massimiliano Curcio – Senior Enterprise AI Architect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --slate-950: #020617;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-100: #f1f5f9;
+      --teal-500:  #14b8a6;
+      --teal-400:  #2dd4bf;
+      --emerald-300: #6ee7b7;
+      --white5:  rgba(255,255,255,0.05);
+      --white10: rgba(255,255,255,0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--slate-950);
+      color: var(--slate-300);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: rgba(20,184,166,.30); color: #99f6e4; }
+
+    a { text-decoration: none; }
+
+    img { display: block; }
+
+    /* ─── Utilities ────────────────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+    }
+
+    /* ─── Animations ───────────────────────────────────────────────── */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: .4; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .anim-1 { animation: fadeUp .7s ease both; }
+    .anim-2 { animation: fadeUp .7s .15s ease both; }
+    .anim-3 { animation: fadeUp .7s .30s ease both; }
+    .anim-4 { animation: fadeUp .7s .45s ease both; }
+    .anim-5 { animation: fadeIn .9s .60s ease both; }
+
+    /* ─── Navigation ───────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      background: rgba(2,6,23,.80);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      height: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      color: #f1f5f9;
+      font-weight: 500;
+      letter-spacing: .08em;
+      font-size: .95rem;
+    }
+
+    .nav-logo span { color: var(--teal-500); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--slate-300);
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    .nav-icon { color: var(--slate-400); transition: color .2s; }
+    .nav-icon:hover { color: var(--teal-400); }
+
+    /* ─── Hero ─────────────────────────────────────────────────────── */
+    #hero {
+      padding-top: 10rem;
+      padding-bottom: 5rem;
+      padding-inline: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at top right, rgba(19,78,74,.20), transparent 60%);
+      z-index: -1;
+    }
+
+    .hero-grid {
+      max-width: 64rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .25rem .75rem;
+      border-radius: 9999px;
+      background: var(--white5);
+      border: 1px solid var(--white10);
+      color: var(--teal-400);
+      font-size: .7rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .badge-dot {
+      width: .5rem;
+      height: .5rem;
+      border-radius: 50%;
+      background: var(--teal-500);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 6vw, 4.5rem);
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 .highlight {
+      font-weight: 500;
+      background: linear-gradient(90deg, var(--teal-400), var(--emerald-300));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--slate-400);
+      font-weight: 300;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      max-width: 38rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .75rem 1.5rem;
+      background: var(--teal-500);
+      color: var(--slate-950);
+      font-weight: 500;
+      border-radius: .5rem;
+      transition: background .2s, box-shadow .2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--teal-400);
+      box-shadow: 0 0 20px rgba(20,184,166,.30);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .75rem 1.5rem;
+      background: var(--white5);
+      border: 1px solid var(--white5);
+      color: #fff;
+      font-weight: 500;
+      border-radius: .5rem;
+      transition: background .2s;
+    }
+
+    .btn-secondary:hover { background: var(--white10); }
+
+    /* Avatar */
+    .avatar-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .avatar-glow {
+      position: relative;
+    }
+
+    .avatar-glow::before {
+      content: '';
+      position: absolute;
+      inset: -1.5rem;
+      border-radius: 50%;
+      background: rgba(20,184,166,.18);
+      filter: blur(40px);
+    }
+
+    .avatar-ring {
+      width: 13rem;
+      height: 13rem;
+      border-radius: 50%;
+      border: 1px solid var(--white10);
+      padding: .35rem;
+      background: rgba(15,23,42,.50);
+      backdrop-filter: blur(4px);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .avatar-ring img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      filter: grayscale(1);
+      transition: filter .7s;
+    }
+
+    .avatar-ring img:hover { filter: grayscale(0); }
+
+    @media (min-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 8fr 4fr;
+      }
+      .avatar-wrap { justify-content: flex-end; }
+      .avatar-ring { width: 16rem; height: 16rem; }
+      .hero-col-text { order: 1; }
+      .hero-col-img  { order: 2; }
+    }
+
+    /* ─── Credibility Bar ──────────────────────────────────────────── */
+    #credibility {
+      border-top: 1px solid rgba(255,255,255,.05);
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      background: rgba(15,23,42,.30);
+    }
+
+    .cred-inner {
+      padding-block: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      opacity: .80;
+    }
+
+    .cred-stat {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .cred-num {
+      font-size: 1.875rem;
+      font-weight: 300;
+      color: #fff;
+    }
+
+    .cred-label {
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--slate-400);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .cred-divider {
+      width: 1px;
+      height: 2rem;
+      background: var(--white10);
+      display: none;
+    }
+
+    .cred-clients {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      filter: grayscale(1);
+      opacity: .70;
+    }
+
+    .cred-client {
+      font-size: .8rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--slate-300);
+    }
+
+    @media (min-width: 768px) { .cred-divider { display: block; } }
+
+    /* ─── About ────────────────────────────────────────────────────── */
+    #about {
+      padding-block: 6rem;
+      padding-inline: 1.5rem;
+    }
+
+    .section-eyebrow {
+      font-size: .75rem;
+      font-weight: 500;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--teal-500);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 4rem;
+    }
+
+    .about-text {
+      max-width: 56rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .about-text p {
+      font-size: 1.1rem;
+      color: var(--slate-400);
+      font-weight: 300;
+      line-height: 1.85;
+      text-align: justify;
+    }
+
+    /* ─── Expertise ────────────────────────────────────────────────── */
+    #expertise {
+      padding-block: 6rem;
+      padding-inline: 1.5rem;
+      background: rgba(15,23,42,.20);
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+
+    .expertise-header { margin-bottom: 4rem; }
+
+    @media (min-width: 768px) {
+      .expertise-header { text-align: center; }
+    }
+
+    .cards-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .cards-grid-2 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .card {
+      padding: 2rem;
+      border-radius: 1rem;
+      background: var(--white5);
+      border: 1px solid var(--white5);
+      transition: border-color .25s;
+    }
+
+    .card:hover { border-color: rgba(20,184,166,.30); }
+
+    .card-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: .75rem;
+      background: var(--slate-900);
+      border: 1px solid var(--white10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--teal-400);
+      margin-bottom: 1.5rem;
+      transition: transform .25s;
+    }
+
+    .card:hover .card-icon { transform: scale(1.10); }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: .75rem;
+    }
+
+    .card-desc {
+      color: var(--slate-400);
+      line-height: 1.7;
+      font-size: .95rem;
+    }
+
+    /* ─── Deep Dives ───────────────────────────────────────────────── */
+    #dives {
+      padding-block: 6rem;
+      padding-inline: 1.5rem;
+    }
+
+    .cards-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .cards-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .dive-card {
+      padding: 2rem;
+      border-radius: 1rem;
+      background: linear-gradient(to bottom, var(--white5), transparent);
+      border: 1px solid var(--white5);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: background .2s;
+    }
+
+    .dive-card:hover { background: rgba(255,255,255,.07); }
+
+    .dive-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: .75rem;
+    }
+
+    .dive-desc {
+      color: var(--slate-400);
+      line-height: 1.7;
+      font-size: .95rem;
+      flex-grow: 1;
+      margin-bottom: 2rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: auto;
+    }
+
+    .tag {
+      padding: .25rem .625rem;
+      border-radius: .375rem;
+      background: var(--slate-900);
+      border: 1px solid var(--white10);
+      font-size: .7rem;
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      color: var(--slate-300);
+    }
+
+    /* ─── CTA ──────────────────────────────────────────────────────── */
+    #contact {
+      padding-block: 8rem;
+      padding-inline: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,.05);
+      background: rgba(15,23,42,.50);
+      text-align: center;
+    }
+
+    .cta-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 50rem;
+      height: 25rem;
+      background: rgba(20,184,166,.10);
+      filter: blur(120px);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .cta-inner { position: relative; z-index: 1; max-width: 52rem; margin-inline: auto; }
+
+    .cta-icon { color: var(--teal-500); opacity: .80; margin-inline: auto; margin-bottom: 2rem; }
+
+    .cta-h2 {
+      font-size: clamp(2.2rem, 5vw, 3.75rem);
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-sub {
+      font-size: 1.15rem;
+      color: var(--slate-400);
+      font-weight: 300;
+      margin-bottom: 3rem;
+      max-width: 38rem;
+      margin-inline: auto;
+      margin-bottom: 3rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      padding: 1rem 2rem;
+      background: #fff;
+      color: var(--slate-950);
+      font-weight: 500;
+      border-radius: .5rem;
+      transition: transform .2s;
+    }
+
+    .btn-white:hover { transform: scale(1.05); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      padding: 1rem 2rem;
+      background: var(--white5);
+      border: 1px solid var(--white10);
+      color: #fff;
+      font-weight: 500;
+      border-radius: .5rem;
+      transition: background .2s;
+    }
+
+    .btn-ghost:hover { background: var(--white10); }
+
+    /* ─── Footer ───────────────────────────────────────────────────── */
+    footer {
+      padding-block: 3rem;
+      padding-inline: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,.05);
+      background: var(--slate-950);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .footer-copy { font-size: .875rem; color: #64748b; }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--slate-400);
+      transition: color .2s;
+    }
+
+    .footer-links a:hover { color: var(--teal-400); }
+
+    /* ─── SVG Icons ────────────────────────────────────────────────── */
+    svg { flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ──────────────────────────────────────────────── -->
+  <nav>
+    <div class="container nav-inner">
+      <div class="nav-logo">MASSIMILIANO<span>CURCIO</span></div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#contact">Contact</a>
+        <a href="https://linkedin.com/in/massimilianocurcio" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="LinkedIn">
+          <!-- Linkedin icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Hero ────────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-gradient"></div>
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Text col -->
+        <div class="hero-col-text">
+          <div class="hero-badge anim-1">
+            <span class="badge-dot"></span>
+            Senior Enterprise AI Architect
+          </div>
+          <h1 class="anim-2">
+            Clean, scalable systems.
+            <span class="highlight">Enterprise AI,<br>without the hype.</span>
+          </h1>
+          <p class="hero-sub anim-3">
+            25+ years of experience designing mission-critical backends.
+            Operating at the intersection of large-scale systems,
+            cloud platforms, and Agentic AI.
+          </p>
+          <div class="hero-actions anim-4">
+            <a href="#contact" class="btn-primary">
+              Let's Connect
+              <!-- ChevronRight -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+            <a href="#expertise" class="btn-secondary">Explore Expertise</a>
+          </div>
+        </div>
+        <!-- Avatar col -->
+        <div class="hero-col-img avatar-wrap anim-5">
+          <div class="avatar-glow">
+            <div class="avatar-ring">
+              <img src="linkedin_profile_picture.png" alt="Massimiliano Curcio" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Credibility Bar ──────────────────────────────────────────── -->
+  <div id="credibility">
+    <div class="container">
+      <div class="cred-inner">
+        <div class="cred-stat">
+          <div class="cred-num">25+</div>
+          <div class="cred-label">Years<br>Experience</div>
+        </div>
+        <div class="cred-divider"></div>
+        <div class="cred-stat">
+          <div class="cred-num">AWS</div>
+          <div class="cred-label">Certified<br>Architect</div>
+        </div>
+        <div class="cred-divider"></div>
+        <div class="cred-clients">
+          <span class="cred-client">Telecom Italia</span>
+          <span class="cred-client">Poste Italiane</span>
+          <span class="cred-client">Reply</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── About ────────────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="container" style="max-width:56rem">
+      <div>
+        <p class="section-eyebrow">The Architect</p>
+        <h2 class="section-title">Bridging the gap between legacy scale<br>and next-generation intelligence.</h2>
+      </div>
+      <div class="about-text">
+        <p>
+          With over 25 years of experience in software development and enterprise architecture, I operate at the intersection of large-scale systems, cloud platforms, and Artificial Intelligence. As an Enterprise AI Architect, I help organizations design, govern, and scale AI-enabled solutions that are secure, resilient, and fully integrated into complex enterprise ecosystems.
+        </p>
+        <p>
+          My background as a Solution Architect spans J2EE, SOA, and modern cloud platforms such as AWS and OpenShift, with a strong foundation in microservices architecture and Domain-Driven Design (DDD). This allows me to architect AI systems that are not only technically robust, but also aligned with business domains, regulatory constraints, and long-term enterprise strategy.
+        </p>
+        <p>
+          In recent years, I have expanded my focus to Generative AI and agentic system architectures, designing and implementing AI-driven workflows based on autonomous and semi-autonomous agents. I work with LLMs, agent orchestration patterns, and tool-augmented reasoning, integrating GenAI capabilities into existing enterprise platforms to improve decision-making, automation, and developer productivity.
+        </p>
+        <p>
+          A key area of expertise is prompt engineering at enterprise scale, including prompt design, chaining, optimization, evaluation, and versioning. I apply structured prompting techniques and reusable prompt patterns to ensure reliability, consistency, and explainability of AI outputs in production environments, with a strong focus on risk mitigation and alignment with business objectives.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Core Competencies ─────────────────────────────────────────── -->
+  <section id="expertise">
+    <div class="container" style="max-width:72rem">
+      <div class="expertise-header">
+        <p class="section-eyebrow">Core Competencies</p>
+        <h2 class="section-title" style="margin-bottom:0">What I Do</h2>
+      </div>
+      <div class="cards-grid-2" style="margin-top:4rem">
+
+        <!-- Card 1 -->
+        <div class="card">
+          <div class="card-icon">
+            <!-- Network -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="5" height="5"/><rect x="17" y="2" width="5" height="5"/><rect x="17" y="17" width="5" height="5"/><rect x="2" y="17" width="5" height="5"/><line x1="4.5" y1="7" x2="4.5" y2="17"/><line x1="19.5" y1="7" x2="19.5" y2="17"/><line x1="7" y1="4.5" x2="17" y2="4.5"/><line x1="7" y1="19.5" x2="17" y2="19.5"/></svg>
+          </div>
+          <h3 class="card-title">Enterprise AI Architecture</h3>
+          <p class="card-desc">Designing secure, governed, and resilient AI systems fully integrated into complex, heavily regulated enterprise ecosystems.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+          <div class="card-icon">
+            <!-- Cpu -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+          </div>
+          <h3 class="card-title">Agentic Systems &amp; GenAI</h3>
+          <p class="card-desc">Implementing autonomous and semi-autonomous AI workflows using advanced LLM orchestration and tool-augmented reasoning.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+          <div class="card-icon">
+            <!-- Cloud -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+          </div>
+          <h3 class="card-title">Cloud &amp; Microservices</h3>
+          <p class="card-desc">Architecting scalable backends on AWS and OpenShift using Domain-Driven Design and microservices principles.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+          <div class="card-icon">
+            <!-- TerminalSquare -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="8 12 11 15 16 9"/></svg>
+          </div>
+          <h3 class="card-title">Prompt Engineering at Scale</h3>
+          <p class="card-desc">Structured prompt design, versioning, evaluation, and optimization to ensure reliable and explainable AI outputs.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Deep Dives ───────────────────────────────────────────────── -->
+  <section id="dives">
+    <div class="container" style="max-width:72rem">
+      <div style="margin-bottom:4rem">
+        <p class="section-eyebrow">Focus Areas</p>
+        <h2 class="section-title" style="margin-bottom:0">Deep Dives</h2>
+      </div>
+      <div class="cards-grid-3">
+
+        <div class="dive-card">
+          <h3 class="dive-title">Agentic AI Development</h3>
+          <p class="dive-desc">Building systems where AI components plan, reason, and act to solve complex enterprise problems.</p>
+          <div class="tags">
+            <span class="tag">LangChain</span>
+            <span class="tag">Embabel</span>
+            <span class="tag">Orchestration</span>
+          </div>
+        </div>
+
+        <div class="dive-card">
+          <h3 class="dive-title">GraphRAG Architectures</h3>
+          <p class="dive-desc">Enhancing LLM retrieval with knowledge graphs to provide accurate, context-aware answers over private enterprise data.</p>
+          <div class="tags">
+            <span class="tag">Knowledge Graphs</span>
+            <span class="tag">RAG</span>
+            <span class="tag">Vector DBs</span>
+          </div>
+        </div>
+
+        <div class="dive-card">
+          <h3 class="dive-title">Enterprise AI Governance</h3>
+          <p class="dive-desc">Establishing frameworks for AI security, observability, cost control, and regulatory compliance.</p>
+          <div class="tags">
+            <span class="tag">Risk Mitigation</span>
+            <span class="tag">Compliance</span>
+            <span class="tag">FinOps</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ──────────────────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="cta-glow"></div>
+    <div class="container">
+      <div class="cta-inner">
+        <!-- ShieldCheck -->
+        <svg class="cta-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+
+        <h2 class="cta-h2">Ready to scale your AI?</h2>
+        <p class="cta-sub">Let's build scalable, governed, and secure AI systems together. Connect with me to discuss enterprise architecture and Agentic AI.</p>
+        <div class="cta-actions">
+          <a href="https://linkedin.com/in/massimilianocurcio" target="_blank" rel="noopener noreferrer" class="btn-white">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            Connect on LinkedIn
+          </a>
+          <a href="mailto:m.curcio@reply.it" class="btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Send an Email
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container" style="max-width:72rem">
+      <div class="footer-inner">
+        <p class="footer-copy">© <script>document.write(new Date().getFullYear())</script> Massimiliano Curcio. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="https://linkedin.com/in/massimilianocurcio" target="_blank" rel="noopener noreferrer">
+            LinkedIn
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a href="https://reply.it" target="_blank" rel="noopener noreferrer">
+            Reply S.p.A.
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
